@@ -1,0 +1,45 @@
+#%RAML 1.0
+title: oauth-employee-api
+description: oauth-mule-employee-api
+
+securitySchemes:
+  oauth_2_0:
+    description: |
+            Mule oauth 2.0
+    type: OAuth 2.0
+    describedBy:
+      headers:
+        Authorization: 
+            description: |
+              used to send a valid oauth access token
+            type: string
+            required: true        
+      responses:
+        401: 
+          description: |
+             bad or expired token
+        403:
+          description:
+            bad oauth request        
+
+securedBy:
+  - oauth_2_0
+/client:
+  description: details of the client
+  get:
+    queryParameters:
+      name:
+        displayName: client name
+        type: string
+        required: false
+      age:
+        displayName: client age
+        type: integer
+        required: false
+      email:
+        displayName: client email
+        type: string
+        required: false
+        pattern: ^.+@.+\..+$
+
+
